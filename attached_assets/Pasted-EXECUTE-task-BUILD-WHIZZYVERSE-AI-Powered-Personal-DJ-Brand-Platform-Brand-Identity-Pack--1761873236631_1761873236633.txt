@@ -1,0 +1,191 @@
+EXECUTE --task "BUILD WHIZZYVERSE: AI-Powered Personal DJ Brand Platform + Brand Identity Pack" \
+--description "
+Objective:
+Develop a complete, interactive, demo-ready platform for DJ Whizzy — titled **WhizzyVerse** — built with a Python Django backend, Next.js frontend, and an AI-powered design system. 
+Also, generate the **WhizzyVerse Brand Asset Pack**, including logo mock, color palette, hero image concept, and WhizBot avatar visual.
+
+------------------------------------------------------------
+# 🌌 PROJECT OVERVIEW
+------------------------------------------------------------
+Platform Name: WhizzyVerse  
+Tagline: 'Step into the Sound Dimension'  
+Identity: A fusion of sound, AI, and visual artistry.  
+Purpose: Showcase DJ Whizzy’s music, events, and merch, with immersive fan interaction and AI-driven features.  
+Target Output: Demo-ready prototype and brand presentation assets for client showcasing.
+
+------------------------------------------------------------
+# 🧱 CORE DELIVERABLES
+------------------------------------------------------------
+1. **Frontend:** Next.js + TailwindCSS + Framer Motion for fluid animations and futuristic UI.
+2. **Backend:** Django (Python) + Django REST Framework (API) + SQLite (demo DB).
+3. **AI Service:** FastAPI microservice 'WhizBot' — DJ Whizzy’s AI fan assistant.
+4. **Brand Asset Pack:** AI-generated logo mock, brand colors, typography system, hero image concept, and AI avatar of WhizBot.
+5. **Deployment:** Frontend (Vercel), Backend (Render or Railway), Full Dockerized setup.
+6. **Demo Presentation Mode:** Polished interactive flow for client pitch.
+
+------------------------------------------------------------
+# 🖥️ FRONTEND (Next.js + Tailwind + Framer Motion)
+------------------------------------------------------------
+Pages:
+  • Landing Page – Music-reactive animations, autoplay hero track, neon visuals.
+  • Music Library – List of Whizzy’s demo tracks with dynamic waveform player.
+  • Events – Upcoming and past shows with poster visuals and location map.
+  • Merch Store – Mock ecommerce showcase for branded items.
+  • Chat Modal (WhizBot) – Floating chat assistant powered by AI microservice.
+  • Admin Dashboard (/admin-demo) – Mock data visualizations for fan analytics.
+
+Visual Aesthetics:
+  - Dark neon theme: black backgrounds with electric cyan and deep purple.
+  - Animated glow effects on hover.
+  - Parallax scrolling and micro-interactions for an immersive flow.
+
+------------------------------------------------------------
+# ⚙️ BACKEND (Python Django + Django REST Framework)
+------------------------------------------------------------
+Core APIs:
+  GET /api/tracks/       → Fetch demo tracks
+  GET /api/events/       → Fetch events
+  GET /api/merch/        → Fetch merch items
+  POST /api/chat/        → Route messages to AI service
+  GET /api/analytics/    → Mock fan data (track plays, chat count)
+  POST /api/admin/login/ → Demo authentication endpoint
+
+Django Apps:
+  - tracks       (models for audio library)
+  - events       (gig listings and timelines)
+  - merch        (store catalog)
+  - analytics    (mock user metrics)
+  - core         (base config, admin dashboard)
+  - ai_connector (API bridge to FastAPI WhizBot)
+
+Models:
+  Track(id, title, genre, bpm, artwork, file_url)
+  Event(id, name, date, venue, city, banner)
+  MerchItem(id, name, price, image_url)
+  Analytics(id, track_plays, chat_sessions, total_fans)
+
+Security:
+  - Django Auth
+  - JWT for API endpoints
+  - CORS + Helmet configuration
+  - CSRF enabled for forms
+
+------------------------------------------------------------
+# 🤖 AI SERVICE (FastAPI - WhizBot)
+------------------------------------------------------------
+Endpoints:
+  POST /chat     → Handle AI dialogue
+  POST /train    → Load Whizzy persona (tone, style, slang)
+  POST /context  → Extend knowledge base (lyrics, biography, event data)
+
+Features:
+  • Whizzy’s persona preloaded from JSON file (/seed/whizzy_persona.json)
+  • Style: confident, cool, playful, fan-engaging tone
+  • Fast local inference + GPT-4 fallback (via OPENAI_API_KEY)
+  • Stores fan Q&A context locally for continuity
+
+Example System Prompt:
+  “You are WhizBot — the AI twin of DJ Whizzy. Speak with swagger, modern slang, and charisma. You love sound, beats, and fans. Stay authentic, never robotic.”
+
+------------------------------------------------------------
+# 🎨 WHIZZYVERSE BRAND ASSET PACK (AI-GENERATED)
+------------------------------------------------------------
+Auto-generate the following visual assets using AI design models:
+
+1. **Logo Mock:**  
+   - Concept: Stylized 'W' intertwined with waveform and vinyl disc motif.  
+   - Colors: Neon Cyan (#00E0FF), Electric Purple (#7A00FF), Midnight Black (#0C0C0C).  
+   - Output: Transparent PNG + SVG.
+
+2. **Color Palette:**  
+   - Primary: Neon Cyan (#00E0FF)  
+   - Secondary: Deep Purple (#7A00FF)  
+   - Accent: White (#FFFFFF)  
+   - Background: Jet Black (#0C0C0C)  
+   - Gradient: linear-gradient(90deg, #00E0FF, #7A00FF)
+
+3. **Typography:**  
+   - Headings: Orbitron (Futuristic)  
+   - Body: Inter (Clean, Modern)
+
+4. **Hero Image Concept:**  
+   - A neon-lit DJ stage in a cyberpunk city skyline, holographic turntables, crowd energy.  
+   - Tagline overlay: “Step into the Sound Dimension.”
+
+5. **WhizBot AI Avatar Visual:**  
+   - Semi-holographic humanoid DJ assistant with glowing headset, calm smile, neon blue eyes.  
+   - Style: Futuristic, friendly, slightly robotic elegance.  
+   - Formats: PNG (transparent), SVG (vector).
+
+All generated visuals stored in `/brand_assets`:
+  - logo_whizzyverse.png  
+  - color_palette.json  
+  - hero_concept.jpg  
+  - whizbot_avatar.png  
+
+------------------------------------------------------------
+# 🧩 DATABASE + SEED DATA
+------------------------------------------------------------
+Database: SQLite (demo mode)
+Seed files:
+  - /seed/whizzy_tracks.json
+  - /seed/whizzy_events.json
+  - /seed/whizzy_merch.json
+  - /seed/whizzy_persona.json
+
+------------------------------------------------------------
+# 🧠 DEMO FLOW (For Client Presentation)
+------------------------------------------------------------
+1️⃣ Load WhizzyVerse homepage — animated visuals react to music.  
+2️⃣ Chat with WhizBot — responds in DJ Whizzy’s tone and humor.  
+3️⃣ Explore Music Library — waveform reacts to beat playback.  
+4️⃣ Check Merch — mock checkout flow.  
+5️⃣ Visit Events — past/future shows, tickets CTA.  
+6️⃣ Admin logs in (/admin-demo) — views mock fan analytics dashboard.  
+7️⃣ Demo closes with hero animation and tagline: *“You’re in the Verse.”*
+
+------------------------------------------------------------
+# 🧰 TECH STACK SUMMARY
+------------------------------------------------------------
+Frontend: Next.js (TypeScript), TailwindCSS, Framer Motion  
+Backend: Django + Django REST Framework  
+AI Service: FastAPI (Python)  
+Database: SQLite (Demo), Postgres (Optional for Prod)  
+Deployment: Vercel (Frontend), Render/Railway (Backend)  
+Containerization: Docker + docker-compose  
+CI/CD: GitHub Actions
+
+------------------------------------------------------------
+# 🔐 ENV VARIABLES (.env.example)
+------------------------------------------------------------
+OPENAI_API_KEY=
+DJANGO_SECRET_KEY=whizzyverse_secret
+DATABASE_URL=sqlite:///whizzyverse.db
+FRONTEND_URL=http://localhost:3000
+BACKEND_URL=http://localhost:8000
+AI_SERVICE_URL=http://localhost:7000
+
+------------------------------------------------------------
+# ✅ ACCEPTANCE CRITERIA
+------------------------------------------------------------
+✔ Fully functional Django backend with all API endpoints  
+✔ FastAPI AI service trained with Whizzy persona  
+✔ Next.js frontend responsive and interactive  
+✔ WhizBot chat functional (local + OpenAI fallback)  
+✔ Brand assets generated and exported  
+✔ Local Docker environment starts all services smoothly  
+✔ README includes setup, usage, and client demo guide
+
+------------------------------------------------------------
+# 📦 FINAL DELIVERABLES
+------------------------------------------------------------
+📁 /frontend           → Next.js app  
+📁 /backend            → Django app  
+📁 /ai_service         → FastAPI WhizBot  
+📁 /brand_assets       → Logo, palette, hero, WhizBot avatar  
+📁 /seed               → Demo content  
+📁 /infra              → Docker + CI/CD config  
+📁 /deliverables       → Demo video, PDF brand deck, README  
+
+Commit Tag: v1.0-WhizzyVerse-DemoReady-Django
+"
