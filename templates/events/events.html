@@ -80,6 +80,7 @@
                     Coming Soon
                 </button>
                 {% endif %}
+                {% include "components/social_share.html" with title=event.name|add:" at "|add:event.venue url=request.build_absolute_uri %}
             </div>
         </div>
         {% empty %}

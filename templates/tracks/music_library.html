@@ -84,6 +84,7 @@
                     Play Track
                 </button>
                 {% endif %}
+                {% include "components/social_share.html" with title=track.title|add:" by "|add:track.artist url=request.build_absolute_uri %}
             </div>
         </div>
         {% empty %}
