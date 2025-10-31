@@ -15,16 +15,15 @@ def export_analytics_csv(analytics):
     
     writer.writerow(['WhizzyVerse Analytics Report'])
     writer.writerow([])
-    writer.writerow(['Metric', 'Value'])
-    writer.writerow(['Total Page Views', analytics.total_page_views])
-    writer.writerow(['Total Track Plays', analytics.total_track_plays])
-    writer.writerow(['Total Chat Sessions', analytics.total_chat_sessions])
-    writer.writerow(['Newsletter Subscribers', analytics.total_newsletter_subscribers])
-    writer.writerow(['Contact Messages', analytics.total_contact_messages])
+    writer.writerow(['Date', analytics.date])
     writer.writerow([])
-    writer.writerow(['Most Viewed Pages'])
-    for page, count in analytics.page_views.items():
-        writer.writerow([page, count])
+    writer.writerow(['Metric', 'Value'])
+    writer.writerow(['Page Views', analytics.page_views])
+    writer.writerow(['Track Plays', analytics.track_plays])
+    writer.writerow(['Chat Sessions', analytics.chat_sessions])
+    writer.writerow(['Total Fans', analytics.total_fans])
+    writer.writerow(['Merch Views', analytics.merch_views])
+    writer.writerow(['Event Views', analytics.event_views])
     
     csv_content = output.getvalue()
     response = HttpResponse(csv_content.encode('utf-8'), content_type='text/csv')
@@ -46,13 +45,18 @@ def export_analytics_pdf(analytics):
     elements.append(title)
     elements.append(Spacer(1, 0.3 * inch))
     
+    subtitle = Paragraph(f'Report Date: {analytics.date}', styles['Normal'])
+    elements.append(subtitle)
+    elements.append(Spacer(1, 0.3 * inch))
+    
     data = [
         ['Metric', 'Value'],
-        ['Total Page Views', str(analytics.total_page_views)],
-        ['Total Track Plays', str(analytics.total_track_plays)],
-        ['Total Chat Sessions', str(analytics.total_chat_sessions)],
-        ['Newsletter Subscribers', str(analytics.total_newsletter_subscribers)],
-        ['Contact Messages', str(analytics.total_contact_messages)],
+        ['Page Views', str(analytics.page_views)],
+        ['Track Plays', str(analytics.track_plays)],
+        ['Chat Sessions', str(analytics.chat_sessions)],
+        ['Total Fans', str(analytics.total_fans)],
+        ['Merch Views', str(analytics.merch_views)],
+        ['Event Views', str(analytics.event_views)],
     ]
     
     table = Table(data, colWidths=[4 * inch, 2 * inch])
@@ -68,29 +72,6 @@ def export_analytics_pdf(analytics):
     ]))
     
     elements.append(table)
-    elements.append(Spacer(1, 0.5 * inch))
-    
-    if analytics.page_views:
-        page_views_title = Paragraph('<b>Most Viewed Pages</b>', styles['Heading2'])
-        elements.append(page_views_title)
-        elements.append(Spacer(1, 0.2 * inch))
-        
-        page_data = [['Page', 'Views']]
-        for page, count in sorted(analytics.page_views.items(), key=lambda x: x[1], reverse=True)[:10]:
-            page_data.append([page, str(count)])
-        
-        page_table = Table(page_data, colWidths=[4 * inch, 2 * inch])
-        page_table.setStyle(TableStyle([
-            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#00E0FF')),
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
-            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('FONTSIZE', (0, 0), (-1, 0), 11),
-            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-            ('GRID', (0, 0), (-1, -1), 1, colors.black)
-        ]))
-        
-        elements.append(page_table)
     
     doc.build(elements)
     
