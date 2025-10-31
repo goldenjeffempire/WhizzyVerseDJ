@@ -1,0 +1,87 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Gradient -->
+  <rect width="1920" height="1080" fill="url(#heroGrad1)"/>
+  
+  <!-- Grid Pattern -->
+  <g opacity="0.1">
+    <line x1="0" y1="0" x2="1920" y2="0" stroke="#00E0FF" stroke-width="1"/>
+    <line x1="0" y1="180" x2="1920" y2="180" stroke="#00E0FF" stroke-width="1"/>
+    <line x1="0" y1="360" x2="1920" y2="360" stroke="#00E0FF" stroke-width="1"/>
+    <line x1="0" y1="540" x2="1920" y2="540" stroke="#00E0FF" stroke-width="1"/>
+    <line x1="0" y1="720" x2="1920" y2="720" stroke="#00E0FF" stroke-width="1"/>
+    <line x1="0" y1="900" x2="1920" y2="900" stroke="#00E0FF" stroke-width="1"/>
+    <line x1="0" y1="1080" x2="1920" y2="1080" stroke="#00E0FF" stroke-width="1"/>
+  </g>
+  
+  <!-- Waveform Visualization -->
+  <path d="M 100 540 L 120 500 L 140 580 L 160 450 L 180 620 L 200 480 L 220 560 L 240 520 L 260 540" 
+        stroke="url(#waveGrad)" stroke-width="6" fill="none" opacity="0.6"/>
+  <path d="M 300 540 L 320 600 L 340 490 L 360 630 L 380 470 L 400 590 L 420 510 L 440 570 L 460 540" 
+        stroke="url(#waveGrad)" stroke-width="6" fill="none" opacity="0.6"/>
+        
+  <!-- Glowing Orbs -->
+  <circle cx="300" cy="300" r="150" fill="url(#orbGrad1)" opacity="0.3"/>
+  <circle cx="1620" cy="780" r="200" fill="url(#orbGrad2)" opacity="0.3"/>
+  
+  <!-- DJ Silhouette -->
+  <g transform="translate(1400, 400)">
+    <!-- Headphones -->
+    <path d="M 50 0 Q 30 -20, 10 0 L 10 30 Q 30 35, 50 30 Z" fill="url(#headphoneGrad)"/>
+    <path d="M 150 0 Q 170 -20, 190 0 L 190 30 Q 170 35, 150 30 Z" fill="url(#headphoneGrad)"/>
+    <path d="M 50 15 Q 100 -30, 150 15" stroke="url(#headphoneGrad)" stroke-width="8" fill="none"/>
+    
+    <!-- DJ Deck -->
+    <rect x="0" y="200" width="200" height="80" rx="10" fill="url(#deckGrad)" opacity="0.8"/>
+    <circle cx="60" cy="240" r="25" fill="#00E0FF" opacity="0.6"/>
+    <circle cx="140" cy="240" r="25" fill="#7A00FF" opacity="0.6"/>
+  </g>
+  
+  <!-- Text: DJ WHIZZY -->
+  <text x="200" y="900" font-family="Orbitron, sans-serif" font-size="120" font-weight="900" fill="url(#textGrad)" opacity="0.8">
+    DJ WHIZZY
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="200" y="980" font-family="Orbitron, sans-serif" font-size="48" fill="#00E0FF" opacity="0.9">
+    STEP INTO THE SOUND DIMENSION
+  </text>
+  
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="heroGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A0A0A;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1A0A2E;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0A0A0A;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00E0FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7A00FF;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00E0FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7A00FF;stop-opacity:1" />
+    </linearGradient>
+    
+    <radialGradient id="orbGrad1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#00E0FF;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#00E0FF;stop-opacity:0" />
+    </radialGradient>
+    
+    <radialGradient id="orbGrad2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#7A00FF;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#7A00FF;stop-opacity:0" />
+    </radialGradient>
+    
+    <linearGradient id="headphoneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00E0FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7A00FF;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="deckGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A1A1A;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#0A0A0A;stop-opacity:0.95" />
+    </linearGradient>
+  </defs>
+</svg>
