@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
 
-from whizzyverse.core.views import landing_page_view
+from whizzyverse.core.views import landing_page_view, favorites_view
 from whizzyverse.tracks.views import TrackViewSet, music_library_view
 from whizzyverse.events.views import EventViewSet, events_view
 from whizzyverse.merch.views import MerchItemViewSet, merch_store_view
@@ -27,6 +27,7 @@ urlpatterns = [
     path('music/', music_library_view, name='music_library'),
     path('events/', events_view, name='events'),
     path('merch/', merch_store_view, name='merch_store'),
+    path('favorites/', favorites_view, name='favorites'),
     path('admin-demo/', admin_dashboard_view, name='admin_dashboard'),
     path('api/', include(router.urls)),
     path('api/chat/', chat_with_whizbot, name='chat_whizbot'),

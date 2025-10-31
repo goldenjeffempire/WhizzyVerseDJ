@@ -80,6 +80,10 @@
                     <a href="/music/" class="hover:text-neon-cyan transition">Music</a>
                     <a href="/events/" class="hover:text-neon-cyan transition">Events</a>
                     <a href="/merch/" class="hover:text-neon-cyan transition">Merch</a>
+                    <a href="/favorites/" class="hover:text-neon-cyan transition flex items-center gap-1" x-data="{ count: favoritesManager.getTotalCount() }" x-init="window.addEventListener('favoritesChanged', () => { count = favoritesManager.getTotalCount() })">
+                        <span>Favorites</span>
+                        <span x-show="count > 0" class="bg-neon-cyan text-black rounded-full px-2 py-0.5 text-xs font-bold" x-text="count"></span>
+                    </a>
                     <a href="/admin-demo/" class="hover:text-electric-purple transition">Admin</a>
                 </div>
                 
@@ -96,6 +100,7 @@
             <a href="/music/" class="block px-4 py-2 hover:bg-gray-800">Music</a>
             <a href="/events/" class="block px-4 py-2 hover:bg-gray-800">Events</a>
             <a href="/merch/" class="block px-4 py-2 hover:bg-gray-800">Merch</a>
+            <a href="/favorites/" class="block px-4 py-2 hover:bg-gray-800">Favorites</a>
             <a href="/admin-demo/" class="block px-4 py-2 hover:bg-gray-800">Admin</a>
         </div>
     </nav>
@@ -297,6 +302,8 @@
             }
         }
     </script>
+    
+    <script src="/static/js/favorites.js"></script>
     
     {% block extra_js %}{% endblock %}
 </body>

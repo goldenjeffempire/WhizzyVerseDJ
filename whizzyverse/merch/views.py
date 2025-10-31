@@ -46,8 +46,11 @@ def merch_store_view(request):
     if category_filter:
         merch_items = merch_items.filter(category__icontains=category_filter)
     
-    if sort_by:
+    allowed_sort_fields = ['name', '-name', 'price', '-price', 'category', '-category']
+    if sort_by and sort_by in allowed_sort_fields:
         merch_items = merch_items.order_by(sort_by)
+    else:
+        merch_items = merch_items.order_by('name')
     
     featured_items = MerchItem.objects.filter(featured=True, is_available=True)[:3]
     all_categories = MerchItem.objects.filter(is_available=True).values_list('category', flat=True).distinct()

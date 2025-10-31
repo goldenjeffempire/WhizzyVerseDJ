@@ -54,7 +54,12 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
         {% for event in upcoming_events %}
         <div class="bg-gray-900 rounded-lg overflow-hidden hover-glow transition">
-            <img src="{{ event.banner }}" alt="{{ event.name }}" class="w-full h-64 object-cover">
+            <div class="relative">
+                <img src="{{ event.banner }}" alt="{{ event.name }}" class="w-full h-64 object-cover">
+                <div class="absolute top-2 right-2">
+                    {% include "components/favorite_button.html" with type="events" item_id=event.id %}
+                </div>
+            </div>
             <div class="p-6">
                 <h3 class="font-heading text-2xl font-bold mb-3">{{ event.name }}</h3>
                 <div class="space-y-2 mb-4">

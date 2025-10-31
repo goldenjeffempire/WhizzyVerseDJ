@@ -51,8 +51,11 @@ def music_library_view(request):
     if genre_filter:
         tracks = tracks.filter(genre__icontains=genre_filter)
     
-    if sort_by:
+    allowed_sort_fields = ['title', '-title', 'release_date', '-release_date', 'plays', '-plays', 'duration', '-duration']
+    if sort_by and sort_by in allowed_sort_fields:
         tracks = tracks.order_by(sort_by)
+    else:
+        tracks = tracks.order_by('-release_date')
     
     featured_tracks = Track.objects.filter(featured=True)[:3]
     all_genres = Track.objects.values_list('genre', flat=True).distinct()

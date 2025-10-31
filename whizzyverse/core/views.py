@@ -14,3 +14,7 @@ def landing_page_view(request):
         'upcoming_events': upcoming_events,
         'featured_merch': featured_merch,
     })
+
+
+def favorites_view(request):
+    return render(request, 'core/favorites.html')

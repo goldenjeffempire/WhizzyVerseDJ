@@ -68,8 +68,11 @@
         <div class="bg-gray-900 rounded-lg overflow-hidden hover-glow transition" x-data="{ showDetails: false }">
             <div class="relative">
                 <img src="{{ item.image_url }}" alt="{{ item.name }}" class="w-full h-80 object-cover">
+                <div class="absolute top-2 right-2 z-10">
+                    {% include "components/favorite_button.html" with type="merch" item_id=item.id %}
+                </div>
                 {% if item.featured %}
-                <span class="absolute top-4 right-4 gradient-bg px-3 py-1 rounded-full text-sm font-bold">
+                <span class="absolute top-16 right-4 gradient-bg px-3 py-1 rounded-full text-sm font-bold">
                     Featured
                 </span>
                 {% endif %}

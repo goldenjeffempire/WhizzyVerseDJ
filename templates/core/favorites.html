@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+
+{% block title %}My Favorites - WhizzyVerse{% endblock %}
+
+{% block content %}
+<section class="bg-gradient-to-r from-electric-purple/20 to-neon-cyan/20 py-20">
+    <div class="max-w-7xl mx-auto px-4">
+        <h1 class="font-heading text-5xl md:text-6xl font-bold text-center glow-text mb-4">My Favorites</h1>
+        <p class="text-center text-gray-400 text-xl">Your Saved Tracks, Events & Merch</p>
+    </div>
+</section>
+
+<section class="max-w-7xl mx-auto px-4 py-12" x-data="favoritesPage()" x-init="loadFavorites()">
+    <div class="mb-8 flex justify-between items-center">
+        <div class="flex gap-4">
+            <button 
+                @click="activeTab = 'tracks'" 
+                :class="activeTab === 'tracks' ? 'gradient-bg' : 'bg-gray-800 hover:bg-gray-700'"
+                class="px-6 py-3 rounded-lg font-bold transition"
+            >
+                Tracks (<span x-text="favoriteData.tracks.length"></span>)
+            </button>
+            <button 
+                @click="activeTab = 'events'" 
+                :class="activeTab === 'events' ? 'gradient-bg' : 'bg-gray-800 hover:bg-gray-700'"
+                class="px-6 py-3 rounded-lg font-bold transition"
+            >
+                Events (<span x-text="favoriteData.events.length"></span>)
+            </button>
+            <button 
+                @click="activeTab = 'merch'" 
+                :class="activeTab === 'merch' ? 'gradient-bg' : 'bg-gray-800 hover:bg-gray-700'"
+                class="px-6 py-3 rounded-lg font-bold transition"
+            >
+                Merch (<span x-text="favoriteData.merch.length"></span>)
+            </button>
+        </div>
+        <button 
+            @click="clearAllFavorites()" 
+            x-show="totalCount > 0"
+            class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg font-bold transition"
+        >
+            Clear All
+        </button>
+    </div>
+
+    <div x-show="loading" class="text-center py-12">
+        <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-neon-cyan"></div>
+        <p class="text-gray-400 mt-4">Loading favorites...</p>
+    </div>
+
+    <div x-show="!loading && totalCount === 0" class="text-center py-20">
+        <svg class="w-24 h-24 mx-auto mb-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+        <h3 class="font-heading text-2xl font-bold mb-2">No Favorites Yet</h3>
+        <p class="text-gray-400 mb-6">Start exploring and save your favorite tracks, events, and merch!</p>
+        <div class="flex justify-center gap-4">
+            <a href="{% url 'music_library' %}" class="px-6 py-3 gradient-bg rounded-lg font-bold hover-glow">
+                Browse Tracks
+            </a>
+            <a href="{% url 'events' %}" class="px-6 py-3 gradient-bg rounded-lg font-bold hover-glow">
+                View Events
+            </a>
+            <a href="{% url 'merch_store' %}" class="px-6 py-3 gradient-bg rounded-lg font-bold hover-glow">
+                Shop Merch
+            </a>
+        </div>
+    </div>
+
+    <div x-show="!loading && activeTab === 'tracks' && favoriteData.tracks.length > 0">
+        <h2 class="font-heading text-3xl font-bold mb-6">Favorite Tracks</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <template x-for="track in tracks" :key="track.id">
+                <div class="bg-gray-900 rounded-lg overflow-hidden hover-glow transition">
+                    <div class="relative">
+                        <img :src="track.artwork" :alt="track.title" class="w-full h-56 object-cover">
+                        <div class="absolute top-2 right-2">
+                            {% include "components/favorite_button.html" with type="'tracks'" item_id="track.id" %}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading text-2xl font-bold mb-2" x-text="track.title"></h3>
+                        <p class="text-gray-400 mb-1" x-text="track.artist"></p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-neon-cyan" x-text="track.genre"></span>
+                            <span class="text-gray-500" x-text="track.bpm + ' BPM'"></span>
+                        </div>
+                        <a :href="'/music/'" class="block text-center mt-4 gradient-bg py-2 rounded-lg font-bold hover-glow">
+                            View Track
+                        </a>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <div x-show="!loading && activeTab === 'events' && favoriteData.events.length > 0">
+        <h2 class="font-heading text-3xl font-bold mb-6">Favorite Events</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <template x-for="event in events" :key="event.id">
+                <div class="bg-gray-900 rounded-lg overflow-hidden hover-glow transition">
+                    <div class="relative">
+                        <img :src="event.banner" :alt="event.name" class="w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2">
+                            {% include "components/favorite_button.html" with type="'events'" item_id="event.id" %}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading text-2xl font-bold mb-3" x-text="event.name"></h3>
+                        <p class="text-gray-400">
+                            <span class="text-neon-cyan">📅</span> <span x-text="formatDate(event.date)"></span>
+                        </p>
+                        <p class="text-gray-400">
+                            <span class="text-neon-cyan">📍</span> <span x-text="event.venue + ', ' + event.city"></span>
+                        </p>
+                        <a :href="'/events/'" class="block text-center mt-4 gradient-bg py-3 rounded-lg font-bold hover-glow">
+                            View Event
+                        </a>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <div x-show="!loading && activeTab === 'merch' && favoriteData.merch.length > 0">
+        <h2 class="font-heading text-3xl font-bold mb-6">Favorite Merch</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <template x-for="item in merch" :key="item.id">
+                <div class="bg-gray-900 rounded-lg overflow-hidden hover-glow transition">
+                    <div class="relative">
+                        <img :src="item.image_url" :alt="item.name" class="w-full h-80 object-cover">
+                        <div class="absolute top-2 right-2">
+                            {% include "components/favorite_button.html" with type="'merch'" item_id="item.id" %}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading text-xl font-bold mb-2" x-text="item.name"></h3>
+                        <p class="text-neon-cyan text-3xl font-bold mb-3">$<span x-text="item.price"></span></p>
+                        <a :href="'/merch/'" class="block text-center mt-4 gradient-bg py-3 rounded-lg font-bold hover-glow">
+                            View Item
+                        </a>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function favoritesPage() {
+    return {
+        activeTab: 'tracks',
+        loading: true,
+        favoriteData: { tracks: [], events: [], merch: [] },
+        tracks: [],
+        events: [],
+        merch: [],
+        totalCount: 0,
+
+        async loadFavorites() {
+            this.loading = true;
+            
+            const favorites = favoritesManager.getAllFavorites();
+            this.favoriteData = favorites;
+            this.totalCount = favoritesManager.getTotalCount();
+
+            try {
+                if (favorites.tracks.length > 0) {
+                    const response = await fetch('/api/tracks/');
+                    const allTracks = await response.json();
+                    this.tracks = allTracks.filter(t => favorites.tracks.includes(t.id));
+                }
+
+                if (favorites.events.length > 0) {
+                    const response = await fetch('/api/events/');
+                    const allEvents = await response.json();
+                    this.events = allEvents.filter(e => favorites.events.includes(e.id));
+                }
+
+                if (favorites.merch.length > 0) {
+                    const response = await fetch('/api/merch/');
+                    const allMerch = await response.json();
+                    this.merch = allMerch.filter(m => favorites.merch.includes(m.id));
+                }
+            } catch (error) {
+                console.error('Error loading favorites:', error);
+            } finally {
+                this.loading = false;
+            }
+
+            window.addEventListener('favoritesChanged', () => {
+                this.loadFavorites();
+            });
+        },
+
+        clearAllFavorites() {
+            if (confirm('Are you sure you want to clear all favorites?')) {
+                favoritesManager.clearAll();
+                this.loadFavorites();
+            }
+        },
+
+        formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit'
+            });
+        }
+    }
+}
+</script>
+{% endblock %}
