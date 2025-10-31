@@ -1,0 +1,80 @@
+[
+  {
+    "name": "WhizzyVerse Launch Party",
+    "date": "2025-11-15T21:00:00Z",
+    "venue": "Neon District Club",
+    "city": "Los Angeles",
+    "country": "USA",
+    "banner": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200",
+    "description": "The official launch of WhizzyVerse! Experience an immersive night of sound, visuals, and AI-powered interactions. Special guest performances and exclusive merch drops.",
+    "ticket_url": "https://example.com/tickets/whizzyverse-launch",
+    "ticket_price": "45.00",
+    "capacity": 500,
+    "is_past": false
+  },
+  {
+    "name": "Cyber Nights Festival",
+    "date": "2025-12-01T20:00:00Z",
+    "venue": "Electric Arena",
+    "city": "Miami",
+    "country": "USA",
+    "banner": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1200",
+    "description": "DJ Whizzy headlines the biggest electronic music festival of the year. 3 stages, 12 hours of non-stop beats.",
+    "ticket_url": "https://example.com/tickets/cyber-nights",
+    "ticket_price": "85.00",
+    "capacity": 2000,
+    "is_past": false
+  },
+  {
+    "name": "Holographic Dreams Tour",
+    "date": "2026-01-10T22:00:00Z",
+    "venue": "Sound Sphere",
+    "city": "New York",
+    "country": "USA",
+    "banner": "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200",
+    "description": "An intimate venue with cutting-edge holographic visuals synced to DJ Whizzy's latest tracks.",
+    "ticket_url": "https://example.com/tickets/holographic-dreams",
+    "ticket_price": "65.00",
+    "capacity": 800,
+    "is_past": false
+  },
+  {
+    "name": "Bass Dimension Showcase",
+    "date": "2024-10-20T21:30:00Z",
+    "venue": "Underground Vault",
+    "city": "Chicago",
+    "country": "USA",
+    "banner": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200",
+    "description": "Heavy bass, dark beats, and underground vibes. This show was absolutely legendary!",
+    "ticket_url": null,
+    "ticket_price": "35.00",
+    "capacity": 300,
+    "is_past": true
+  },
+  {
+    "name": "Electric Summer Festival",
+    "date": "2024-08-05T18:00:00Z",
+    "venue": "Beachside Stage",
+    "city": "San Diego",
+    "country": "USA",
+    "banner": "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=1200",
+    "description": "Summer vibes meet electronic beats. DJ Whizzy closed the festival with an unforgettable sunset set.",
+    "ticket_url": null,
+    "ticket_price": "55.00",
+    "capacity": 1500,
+    "is_past": true
+  },
+  {
+    "name": "Neon Nights Residency",
+    "date": "2024-06-12T23:00:00Z",
+    "venue": "Club Infinity",
+    "city": "Las Vegas",
+    "country": "USA",
+    "banner": "https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=1200",
+    "description": "Weekly residency at Vegas' hottest club. This particular night featured the debut of 'Electric Soul'.",
+    "ticket_url": null,
+    "ticket_price": "40.00",
+    "capacity": 600,
+    "is_past": true
+  }
+]

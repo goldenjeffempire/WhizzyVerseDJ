@@ -1,0 +1,98 @@
+[
+  {
+    "title": "Neon Dreams",
+    "artist": "DJ Whizzy",
+    "genre": "Electronic",
+    "bpm": 128,
+    "duration": "4:23",
+    "artwork": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800",
+    "file_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    "release_date": "2024-01-15",
+    "plays": 15420,
+    "featured": true
+  },
+  {
+    "title": "Cyber Groove",
+    "artist": "DJ Whizzy",
+    "genre": "House",
+    "bpm": 124,
+    "duration": "5:12",
+    "artwork": "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800",
+    "file_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    "release_date": "2024-02-20",
+    "plays": 12890,
+    "featured": true
+  },
+  {
+    "title": "Bass Dimension",
+    "artist": "DJ Whizzy",
+    "genre": "Dubstep",
+    "bpm": 140,
+    "duration": "3:47",
+    "artwork": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800",
+    "file_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    "release_date": "2024-03-10",
+    "plays": 9870,
+    "featured": false
+  },
+  {
+    "title": "Electric Soul",
+    "artist": "DJ Whizzy",
+    "genre": "Techno",
+    "bpm": 135,
+    "duration": "6:05",
+    "artwork": "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800",
+    "file_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+    "release_date": "2024-04-05",
+    "plays": 18500,
+    "featured": true
+  },
+  {
+    "title": "Midnight Pulse",
+    "artist": "DJ Whizzy",
+    "genre": "Deep House",
+    "bpm": 120,
+    "duration": "4:56",
+    "artwork": "https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=800",
+    "file_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+    "release_date": "2024-05-22",
+    "plays": 7650,
+    "featured": false
+  },
+  {
+    "title": "Future Beats",
+    "artist": "DJ Whizzy",
+    "genre": "Progressive",
+    "bpm": 130,
+    "duration": "5:34",
+    "artwork": "https://images.unsplash.com/photo-1598387993441-a364f854c3e1?w=800",
+    "file_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+    "release_date": "2024-06-18",
+    "plays": 11200,
+    "featured": false
+  },
+  {
+    "title": "Holographic Waves",
+    "artist": "DJ Whizzy",
+    "genre": "Trance",
+    "bpm": 138,
+    "duration": "7:15",
+    "artwork": "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=800",
+    "file_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
+    "release_date": "2024-07-30",
+    "plays": 22100,
+    "featured": true
+  },
+  {
+    "title": "Sound Dimension",
+    "artist": "DJ Whizzy",
+    "genre": "EDM",
+    "bpm": 128,
+    "duration": "4:02",
+    "artwork": "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800",
+    "file_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
+    "release_date": "2024-08-14",
+    "plays": 14320,
+    "featured": false
+  }
+]
