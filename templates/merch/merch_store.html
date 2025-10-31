@@ -62,7 +62,7 @@
     </form>
 </section>
 
-<section class="max-w-7xl mx-auto px-4 pb-12">
+<section class="max-w-7xl mx-auto px-4 pb-12" x-data="merchStore()">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for item in merch_items %}
         <div class="bg-gray-900 rounded-lg overflow-hidden hover-glow transition" x-data="{ showDetails: false }">
@@ -91,14 +91,12 @@
                 <p class="text-gray-400 text-sm mb-4">{{ item.description|truncatewords:20 }}</p>
                 
                 {% if item.in_stock %}
-                <button @click="showDetails = !showDetails" 
-                        class="w-full gradient-bg py-3 rounded-lg font-bold hover-glow">
-                    Add to Cart
+                <button 
+                    @click="openModal({ id: {{ item.id }}, name: '{{ item.name|escapejs }}', price: {{ item.price }}, image_url: '{{ item.image_url }}', category: '{{ item.category }}', description: '{{ item.description|escapejs }}' })" 
+                    class="w-full gradient-bg py-3 rounded-lg font-bold hover-glow"
+                >
+                    View Details
                 </button>
-                <div x-show="showDetails" x-transition class="mt-4 p-4 bg-gray-800 rounded-lg">
-                    <p class="text-green-400 text-sm">✓ Added to cart! (Demo Mode)</p>
-                    <p class="text-gray-400 text-xs mt-2">{{ item.stock }} items in stock</p>
-                </div>
                 {% else %}
                 <button class="w-full bg-gray-700 py-3 rounded-lg font-bold cursor-not-allowed">
                     Out of Stock
@@ -110,5 +108,98 @@
         <p class="text-gray-400 col-span-3 text-center py-12">No merch available yet. Check back soon!</p>
         {% endfor %}
     </div>
+
+    <div 
+        x-show="selectedItem" 
+        x-transition
+        @click.self="selectedItem = null"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+    >
+        <div class="bg-gray-900 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto" @click.stop>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="font-heading text-2xl font-bold" x-text="selectedItem?.name"></h2>
+                    <button @click="selectedItem = null" class="text-gray-400 hover:text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <img :src="selectedItem?.image_url" :alt="selectedItem?.name" class="w-full h-96 object-cover rounded-lg mb-4">
+
+                <div class="mb-4">
+                    <span class="text-gray-400 text-sm" x-text="selectedItem?.category"></span>
+                    <p class="text-neon-cyan text-4xl font-bold mt-2">$<span x-text="selectedItem?.price.toFixed(2)"></span></p>
+                </div>
+
+                <p class="text-gray-300 mb-6" x-text="selectedItem?.description"></p>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-2">Size</label>
+                        <select x-model="selectedSize" class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-neon-cyan">
+                            <option value="XS">XS</option>
+                            <option value="S">S</option>
+                            <option value="M" selected>M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-2">Quantity</label>
+                        <input 
+                            type="number" 
+                            x-model="selectedQuantity" 
+                            min="1" 
+                            max="10"
+                            class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-neon-cyan"
+                        >
+                    </div>
+                </div>
+
+                <button 
+                    @click="addToCart()" 
+                    class="w-full gradient-bg py-3 rounded-lg font-bold hover-glow"
+                >
+                    Add to Cart - $<span x-text="(selectedItem?.price * selectedQuantity).toFixed(2)"></span>
+                </button>
+            </div>
+        </div>
+    </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function merchStore() {
+    return {
+        selectedItem: null,
+        selectedSize: 'M',
+        selectedQuantity: 1,
+
+        openModal(item) {
+            this.selectedItem = item;
+            this.selectedSize = 'M';
+            this.selectedQuantity = 1;
+        },
+
+        addToCart() {
+            if (!this.selectedItem) return;
+
+            const success = shoppingCart.addItem(
+                this.selectedItem,
+                this.selectedQuantity,
+                this.selectedSize
+            );
+
+            if (success) {
+                alert(`Added ${this.selectedQuantity}x ${this.selectedItem.name} (${this.selectedSize}) to cart!`);
+                this.selectedItem = null;
+            }
+        }
+    }
+}
+</script>
 {% endblock %}

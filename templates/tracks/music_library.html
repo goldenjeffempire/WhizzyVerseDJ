@@ -62,7 +62,7 @@
     </form>
 </section>
 
-<section class="max-w-7xl mx-auto px-4 pb-12" x-data="{ activeTrack: null }">
+<section class="max-w-7xl mx-auto px-4 pb-12" x-data="musicLibrary()">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for track in tracks %}
         <div class="bg-gray-900 rounded-lg overflow-hidden hover-glow transition">
@@ -84,8 +84,10 @@
                     <span class="text-sm text-gray-500">{{ track.duration }}</span>
                 </div>
                 {% if track.file_url %}
-                <button @click="activeTrack = {{ track.id }}" 
-                        class="mt-4 w-full gradient-bg py-2 rounded-lg font-bold hover-glow">
+                <button 
+                    @click="playTrack({{ track.id }})"
+                    class="mt-4 w-full gradient-bg py-2 rounded-lg font-bold hover-glow"
+                >
                     Play Track
                 </button>
                 {% endif %}
@@ -97,4 +99,29 @@
         {% endfor %}
     </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function musicLibrary() {
+    return {
+        tracks: {{ tracks_json|safe }},
+
+        async playTrack(trackId) {
+            const track = this.tracks.find(t => t.id === trackId);
+            if (!track) {
+                console.error('Track not found');
+                return;
+            }
+
+            await musicPlayer.loadTrack(track, this.tracks);
+            musicPlayer.play();
+            
+            if (trackId) {
+                musicPlayer.incrementPlayCount(trackId);
+            }
+        }
+    }
+}
+</script>
 {% endblock %}

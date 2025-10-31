@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Q
+from django.core.serializers import serialize
+import json
 from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -60,8 +62,21 @@ def music_library_view(request):
     featured_tracks = Track.objects.filter(featured=True)[:3]
     all_genres = Track.objects.values_list('genre', flat=True).distinct()
     
+    tracks_json = json.dumps([{
+        'id': t.id,
+        'title': t.title,
+        'artist': t.artist,
+        'genre': t.genre,
+        'bpm': t.bpm,
+        'artwork': t.artwork,
+        'file_url': t.file_url if hasattr(t, 'file_url') else '',
+        'duration': t.duration,
+        'plays': float(t.plays)
+    } for t in tracks])
+    
     return render(request, 'tracks/music_library.html', {
         'tracks': tracks,
+        'tracks_json': tracks_json,
         'featured_tracks': featured_tracks,
         'all_genres': all_genres,
         'search_query': search_query,

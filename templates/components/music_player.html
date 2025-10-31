@@ -1,0 +1,164 @@
+{% comment %}
+Global Music Player Component
+This is a fixed player that appears when a track is played
+{% endcomment %}
+
+<div 
+    id="global-music-player" 
+    x-data="globalMusicPlayer()" 
+    x-show="isVisible" 
+    x-transition
+    class="fixed bottom-0 left-0 right-0 bg-gray-900/95 backdrop-blur-lg border-t border-gray-800 z-40"
+    style="display: none;"
+>
+    <div class="max-w-7xl mx-auto px-4 py-3">
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3 flex-1 min-w-0">
+                <img 
+                    x-show="currentTrack" 
+                    :src="currentTrack?.artwork" 
+                    :alt="currentTrack?.title" 
+                    class="w-12 h-12 rounded object-cover"
+                >
+                <div class="min-w-0 flex-1">
+                    <h4 class="font-bold text-sm truncate" x-text="currentTrack?.title || 'No track playing'"></h4>
+                    <p class="text-xs text-gray-400 truncate" x-text="currentTrack?.artist || ''"></p>
+                </div>
+            </div>
+
+            <div class="hidden md:block flex-1">
+                <canvas 
+                    id="waveform-canvas" 
+                    class="w-full h-12" 
+                    width="400" 
+                    height="48"
+                ></canvas>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button 
+                    @click="previous()" 
+                    class="p-2 hover:text-neon-cyan transition"
+                    title="Previous"
+                >
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                    </svg>
+                </button>
+
+                <button 
+                    @click="togglePlay()" 
+                    class="p-3 bg-gradient-to-r from-neon-cyan to-electric-purple rounded-full hover-glow"
+                >
+                    <svg x-show="!isPlaying" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    <svg x-show="isPlaying" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                    </svg>
+                </button>
+
+                <button 
+                    @click="next()" 
+                    class="p-2 hover:text-neon-cyan transition"
+                    title="Next"
+                >
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M16 18h2V6h-2zM6 18l8.5-6L6 6z"/>
+                    </svg>
+                </button>
+
+                <div class="hidden md:flex items-center gap-2">
+                    <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+                    </svg>
+                    <input 
+                        type="range" 
+                        min="0" 
+                        max="100" 
+                        x-model="volume"
+                        @input="setVolume($event.target.value)"
+                        class="w-20 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                    >
+                </div>
+
+                <span class="text-xs text-gray-400 min-w-[80px]" x-text="currentTime + ' / ' + duration"></span>
+            </div>
+        </div>
+
+        <div class="mt-2">
+            <input 
+                type="range" 
+                min="0" 
+                max="100" 
+                :value="progress"
+                @input="seek($event.target.value)"
+                class="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                style="background: linear-gradient(to right, #00E0FF 0%, #00E0FF var(--progress, 0%), #374151 var(--progress, 0%), #374151 100%);"
+                :style="`--progress: ${progress}%`"
+            >
+        </div>
+    </div>
+</div>
+
+<script>
+function globalMusicPlayer() {
+    return {
+        isVisible: false,
+        isPlaying: false,
+        currentTrack: null,
+        currentTime: '0:00',
+        duration: '0:00',
+        progress: 0,
+        volume: 70,
+
+        init() {
+            musicPlayer.setCanvas(document.getElementById('waveform-canvas'));
+            musicPlayer.setVolume(this.volume);
+
+            window.addEventListener('musicPlayer:trackChanged', (e) => {
+                this.currentTrack = e.detail;
+                this.isVisible = true;
+            });
+
+            window.addEventListener('musicPlayer:play', () => {
+                this.isPlaying = true;
+            });
+
+            window.addEventListener('musicPlayer:pause', () => {
+                this.isPlaying = false;
+            });
+
+            window.addEventListener('musicPlayer:progress', (e) => {
+                this.currentTime = e.detail.current;
+                this.duration = e.detail.duration;
+                this.progress = e.detail.percentage;
+            });
+
+            window.addEventListener('musicPlayer:loaded', (e) => {
+                this.duration = e.detail.duration;
+            });
+        },
+
+        togglePlay() {
+            musicPlayer.toggle();
+        },
+
+        next() {
+            musicPlayer.next();
+        },
+
+        previous() {
+            musicPlayer.previous();
+        },
+
+        seek(percentage) {
+            musicPlayer.seek(percentage);
+        },
+
+        setVolume(value) {
+            musicPlayer.setVolume(value);
+        }
+    }
+}
+</script>
