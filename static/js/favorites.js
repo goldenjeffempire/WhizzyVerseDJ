@@ -98,6 +98,13 @@ function favoritesPage() {
         merch: [],
         totalCount: 0,
 
+        init() {
+            this.loadFavorites();
+            window.addEventListener('favoritesChanged', () => {
+                this.loadFavorites();
+            });
+        },
+
         async loadFavorites() {
             this.loading = true;
             
@@ -128,10 +135,6 @@ function favoritesPage() {
             } finally {
                 this.loading = false;
             }
-
-            window.addEventListener('favoritesChanged', () => {
-                this.loadFavorites();
-            });
         },
 
         clearAllFavorites() {

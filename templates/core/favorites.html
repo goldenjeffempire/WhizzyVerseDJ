@@ -10,7 +10,7 @@
     </div>
 </section>
 
-<section class="max-w-7xl mx-auto px-4 py-12" x-data="favoritesPage()" x-init="loadFavorites()">
+<section class="max-w-7xl mx-auto px-4 py-12" x-data="favoritesPage()"
     <div class="mb-8 flex justify-between items-center">
         <div class="flex gap-4">
             <button 
@@ -147,74 +147,4 @@
     </div>
 </section>
 
-{% endblock %}
-
-{% block extra_js %}
-<script>
-function favoritesPage() {
-    return {
-        activeTab: 'tracks',
-        loading: true,
-        favoriteData: { tracks: [], events: [], merch: [] },
-        tracks: [],
-        events: [],
-        merch: [],
-        totalCount: 0,
-
-        async loadFavorites() {
-            this.loading = true;
-            
-            const favorites = favoritesManager.getAllFavorites();
-            this.favoriteData = favorites;
-            this.totalCount = favoritesManager.getTotalCount();
-
-            try {
-                if (favorites.tracks.length > 0) {
-                    const response = await fetch('/api/tracks/');
-                    const allTracks = await response.json();
-                    this.tracks = allTracks.filter(t => favorites.tracks.includes(t.id));
-                }
-
-                if (favorites.events.length > 0) {
-                    const response = await fetch('/api/events/');
-                    const allEvents = await response.json();
-                    this.events = allEvents.filter(e => favorites.events.includes(e.id));
-                }
-
-                if (favorites.merch.length > 0) {
-                    const response = await fetch('/api/merch/');
-                    const allMerch = await response.json();
-                    this.merch = allMerch.filter(m => favorites.merch.includes(m.id));
-                }
-            } catch (error) {
-                console.error('Error loading favorites:', error);
-            } finally {
-                this.loading = false;
-            }
-
-            window.addEventListener('favoritesChanged', () => {
-                this.loadFavorites();
-            });
-        },
-
-        clearAllFavorites() {
-            if (confirm('Are you sure you want to clear all favorites?')) {
-                favoritesManager.clearAll();
-                this.loadFavorites();
-            }
-        },
-
-        formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                hour: 'numeric',
-                minute: '2-digit'
-            });
-        }
-    }
-}
-</script>
 {% endblock %}
