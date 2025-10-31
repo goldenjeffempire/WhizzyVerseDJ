@@ -51,13 +51,7 @@
                 </div>
                 <div class="flex justify-between items-center">
                     <span class="text-gray-400">Avg Plays per Track</span>
-                    <span class="text-neon-cyan font-bold text-xl">
-                        {% if total_tracks > 0 %}
-                            {{ analytics.track_plays|floatformat:0|add:"0"|divisibleby:total_tracks|default:"0" }}
-                        {% else %}
-                            0
-                        {% endif %}
-                    </span>
+                    <span class="text-neon-cyan font-bold text-xl">{{ avg_plays_per_track|floatformat:0 }}</span>
                 </div>
             </div>
         </div>

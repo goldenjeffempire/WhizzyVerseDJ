@@ -41,8 +41,11 @@ def admin_dashboard_view(request):
     total_tracks = Track.objects.count()
     featured_tracks = Track.objects.filter(featured=True).count()
     
+    avg_plays_per_track = (analytics.track_plays / total_tracks) if total_tracks > 0 else 0
+    
     return render(request, 'analytics/admin_dashboard.html', {
         'analytics': analytics,
         'total_tracks': total_tracks,
         'featured_tracks': featured_tracks,
+        'avg_plays_per_track': avg_plays_per_track,
     })
