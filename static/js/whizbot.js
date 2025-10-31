@@ -4,7 +4,7 @@ class WhizBot {
         this.isOpen = false;
         this.messages = [];
         this.sessionId = this.generateSessionId();
-        this.apiEndpoint = '/api/whizbot/chat/';
+        this.apiEndpoint = '/api/chat/';
         this.isTyping = false;
         
         this.init();
