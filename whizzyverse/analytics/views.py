@@ -49,3 +49,30 @@ def admin_dashboard_view(request):
         'featured_tracks': featured_tracks,
         'avg_plays_per_track': avg_plays_per_track,
     })
+
+
+def analytics_dashboard_view(request):
+    """Public analytics dashboard view"""
+    return admin_dashboard_view(request)
+
+
+def export_csv_view(request):
+    """Export analytics as CSV"""
+    from .utils import export_analytics_csv
+    try:
+        analytics = Analytics.objects.latest('created_at')
+    except Analytics.DoesNotExist:
+        analytics = Analytics.objects.create()
+    
+    return export_analytics_csv(analytics)
+
+
+def export_pdf_view(request):
+    """Export analytics as PDF"""
+    from .utils import export_analytics_pdf
+    try:
+        analytics = Analytics.objects.latest('created_at')
+    except Analytics.DoesNotExist:
+        analytics = Analytics.objects.create()
+    
+    return export_analytics_pdf(analytics)

@@ -96,6 +96,14 @@
                     </p>
                     <p class="text-gray-400">
                         <span class="text-neon-cyan">📍</span> {{ event.venue }}, {{ event.city }}, {{ event.country }}
+                        <a 
+                            href="https://www.google.com/maps/search/?api=1&query={{ event.venue|urlencode }}+{{ event.city|urlencode }}" 
+                            target="_blank"
+                            class="ml-2 text-neon-cyan hover:underline text-sm"
+                            title="View on Google Maps"
+                        >
+                            🗺️ Map
+                        </a>
                     </p>
                     {% if event.ticket_price %}
                     <p class="text-gray-400">
