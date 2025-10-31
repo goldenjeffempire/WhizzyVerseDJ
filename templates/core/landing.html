@@ -1,87 +1,463 @@
 {% extends 'base.html' %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/animations.css' %}">
+<style>
+.hero-gradient {
+    background: linear-gradient(135deg, #0A0A0A 0%, #1A0A2E 50%, #0A0A0A 100%);
+    position: relative;
+}
+
+.hero-pattern {
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(0, 224, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(122, 0, 255, 0.1) 0%, transparent 50%);
+}
+
+.stats-card {
+    background: linear-gradient(135deg, rgba(0, 224, 255, 0.1) 0%, rgba(122, 0, 255, 0.1) 100%);
+    border: 1px solid rgba(0, 224, 255, 0.3);
+}
+
+.dj-card {
+    background: linear-gradient(180deg, rgba(26, 26, 26, 0.9) 0%, rgba(10, 10, 10, 0.95) 100%);
+}
+
+.section-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00E0FF, #7A00FF, transparent);
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<section class="relative h-screen flex items-center justify-center overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-electric-purple/20 to-neon-cyan/20"></div>
-    <div class="relative z-10 text-center px-4">
-        <h1 class="font-heading text-6xl md:text-8xl font-black glow-text mb-6 animate-pulse">
-            WhizzyVerse
+<!-- Hero Section with Advanced Animations -->
+<section class="hero-gradient hero-pattern relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Animated Background Particles -->
+    <div class="particles absolute inset-0" id="particles-bg"></div>
+    
+    <!-- Rotating Gradient Orbs -->
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-cyan opacity-20 rounded-full filter blur-3xl rotate-slow"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-electric-purple opacity-20 rounded-full filter blur-3xl rotate-medium"></div>
+    
+    <!-- Hero Content -->
+    <div class="relative z-10 text-center px-4 max-w-6xl mx-auto">
+        <!-- Sound Bars Indicator -->
+        <div class="flex justify-center items-end h-16 mb-8 gap-1">
+            <span class="sound-bar"></span>
+            <span class="sound-bar"></span>
+            <span class="sound-bar"></span>
+            <span class="sound-bar"></span>
+            <span class="sound-bar"></span>
+        </div>
+        
+        <!-- Main Title -->
+        <h1 class="font-heading text-7xl md:text-9xl font-black neon-text mb-4 slide-in-up">
+            DJ WHIZZY
         </h1>
-        <p class="text-2xl md:text-4xl text-gray-300 mb-8">
+        
+        <!-- Tagline -->
+        <p class="text-3xl md:text-5xl font-bold mb-3 slide-in-up" style="animation-delay: 0.2s;">
+            <span class="text-neon-cyan">WHIZZYVERSE</span>
+        </p>
+        
+        <p class="text-xl md:text-3xl text-gray-300 mb-12 slide-in-up" style="animation-delay: 0.4s;">
             Step into the Sound Dimension
         </p>
-        <div class="flex flex-col md:flex-row gap-4 justify-center">
-            <a href="/music/" class="gradient-bg px-8 py-4 rounded-lg font-bold hover-glow">
+        
+        <!-- CTA Buttons -->
+        <div class="flex flex-col md:flex-row gap-6 justify-center items-center slide-in-up" style="animation-delay: 0.6s;">
+            <a href="/music/" class="btn-pulse gradient-bg px-10 py-5 rounded-full font-bold text-lg hover-glow-intense transition-smooth inline-flex items-center">
+                <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"/>
+                </svg>
                 Explore Music
             </a>
-            <a href="/events/" class="border-2 border-neon-cyan px-8 py-4 rounded-lg font-bold hover-glow">
+            
+            <a href="/events/" class="glass-card px-10 py-5 rounded-full font-bold text-lg hover-lift transition-bounce inline-flex items-center">
+                <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                </svg>
                 Upcoming Events
             </a>
+            
+            <a href="/merch/" class="border-2 border-electric-purple px-10 py-5 rounded-full font-bold text-lg hover-glow-intense transition-smooth inline-flex items-center">
+                <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
+                </svg>
+                Shop Merch
+            </a>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 floating">
+            <svg class="w-8 h-8 text-neon-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
         </div>
     </div>
 </section>
 
-<section class="max-w-7xl mx-auto px-4 py-20">
-    <h2 class="font-heading text-4xl font-bold text-center mb-12 glow-text">Featured Tracks</h2>
+<!-- DJ Whizzy Profile Section -->
+<section class="max-w-7xl mx-auto px-4 py-20 scroll-reveal">
+    <div class="glass-card rounded-3xl p-8 md:p-12 dj-card">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="relative">
+                <div class="absolute inset-0 bg-gradient-to-r from-neon-cyan to-electric-purple rounded-3xl blur-xl opacity-50"></div>
+                <div class="relative aspect-square rounded-3xl overflow-hidden border-4 border-neon-cyan">
+                    <img src="https://images.unsplash.com/photo-1571609252413-371071c335a2?w=800" 
+                         alt="DJ Whizzy" 
+                         class="w-full h-full object-cover hover-glow-intense transition-smooth">
+                </div>
+            </div>
+            
+            <div>
+                <h2 class="font-heading text-5xl md:text-6xl font-black mb-6 neon-text">
+                    About DJ Whizzy
+                </h2>
+                <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+                    Nigeria's finest DJ bringing Afrobeats, Hip-Hop, and Electronic fusion to life. 
+                    With over <span class="text-neon-cyan font-bold">100+ shows</span> across Lagos, Abuja, and international stages, 
+                    DJ Whizzy creates unforgettable experiences that make crowds move.
+                </p>
+                <p class="text-gray-300 text-lg mb-8 leading-relaxed">
+                    From exclusive club nights to massive festival performances, each set is a journey 
+                    through sound designed to elevate your energy and connect you to the rhythm of Nigeria.
+                </p>
+                
+                <!-- Social Media Links -->
+                <div class="flex gap-4">
+                    <a href="https://instagram.com/djwhizzy" target="_blank" class="glass-card p-4 rounded-lg hover-lift transition-smooth">
+                        <svg class="w-6 h-6 text-neon-cyan" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
+                            <path d="M12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4z"/>
+                            <circle cx="18.406" cy="5.594" r="1.44"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/djwhizzy" target="_blank" class="glass-card p-4 rounded-lg hover-lift transition-smooth">
+                        <svg class="w-6 h-6 text-neon-cyan" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="https://facebook.com/djwhizzy" target="_blank" class="glass-card p-4 rounded-lg hover-lift transition-smooth">
+                        <svg class="w-6 h-6 text-neon-cyan" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="https://spotify.com/djwhizzy" target="_blank" class="glass-card p-4 rounded-lg hover-lift transition-smooth">
+                        <svg class="w-6 h-6 text-neon-cyan" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="max-w-7xl mx-auto px-4 py-20 scroll-reveal">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="stats-card p-8 rounded-2xl text-center hover-lift transition-smooth stagger-item">
+            <div class="text-5xl font-black text-neon-cyan mb-2">100+</div>
+            <div class="text-gray-400 text-sm uppercase tracking-wider">Live Shows</div>
+        </div>
+        <div class="stats-card p-8 rounded-2xl text-center hover-lift transition-smooth stagger-item">
+            <div class="text-5xl font-black text-electric-purple mb-2">50K+</div>
+            <div class="text-gray-400 text-sm uppercase tracking-wider">Track Plays</div>
+        </div>
+        <div class="stats-card p-8 rounded-2xl text-center hover-lift transition-smooth stagger-item">
+            <div class="text-5xl font-black text-neon-cyan mb-2">25K+</div>
+            <div class="text-gray-400 text-sm uppercase tracking-wider">Followers</div>
+        </div>
+        <div class="stats-card p-8 rounded-2xl text-center hover-lift transition-smooth stagger-item">
+            <div class="text-5xl font-black text-electric-purple mb-2">15+</div>
+            <div class="text-gray-400 text-sm uppercase tracking-wider">Awards</div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Divider -->
+<div class="section-divider max-w-4xl mx-auto my-12"></div>
+
+<!-- Featured Tracks Section -->
+<section class="max-w-7xl mx-auto px-4 py-20 scroll-reveal">
+    <div class="text-center mb-16">
+        <h2 class="font-heading text-5xl md:text-6xl font-black mb-4 neon-text">
+            Featured Tracks
+        </h2>
+        <p class="text-gray-400 text-lg">Experience the latest beats from DJ Whizzy</p>
+    </div>
+    
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {% for track in featured_tracks %}
-        <div class="bg-gray-900 rounded-lg overflow-hidden hover-glow cursor-pointer">
-            <img src="{{ track.artwork }}" alt="{{ track.title }}" class="w-full h-48 object-cover">
+        <div class="glass-card rounded-2xl overflow-hidden hover-lift transition-smooth stagger-item group">
+            <div class="relative overflow-hidden">
+                <img src="{{ track.artwork }}" alt="{{ track.title }}" class="w-full h-64 object-cover group-hover:scale-110 transition-smooth">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-smooth flex items-end p-6">
+                    <button class="btn-pulse gradient-bg px-6 py-3 rounded-full font-bold w-full">
+                        <svg class="w-5 h-5 inline mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+                        </svg>
+                        Play Now
+                    </button>
+                </div>
+            </div>
             <div class="p-6">
-                <h3 class="font-heading text-xl font-bold mb-2">{{ track.title }}</h3>
-                <p class="text-gray-400 mb-2">{{ track.genre }} • {{ track.bpm }} BPM</p>
-                <p class="text-neon-cyan text-sm">{{ track.plays|floatformat:0 }} plays</p>
+                <h3 class="font-heading text-2xl font-bold mb-2">{{ track.title }}</h3>
+                <p class="text-gray-400 mb-3">{{ track.artist }}</p>
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-neon-cyan">{{ track.genre }}</span>
+                    <span class="text-gray-500">{{ track.bpm }} BPM</span>
+                </div>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="text-gray-400 text-sm">{{ track.plays|floatformat:0 }} plays</span>
+                    <div class="flex gap-2">
+                        <button class="text-gray-400 hover:text-neon-cyan transition-smooth">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/>
+                            </svg>
+                        </button>
+                        <button class="text-gray-400 hover:text-neon-cyan transition-smooth">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         {% empty %}
-        <p class="text-gray-400 col-span-3 text-center">No featured tracks available</p>
+        <div class="col-span-3 text-center py-20">
+            <p class="text-gray-400 text-xl">No featured tracks available yet. Check back soon!</p>
+        </div>
         {% endfor %}
     </div>
-    <div class="text-center mt-8">
-        <a href="/music/" class="text-neon-cyan hover:text-electric-purple transition">View All Tracks →</a>
+    
+    <div class="text-center mt-12">
+        <a href="/music/" class="inline-flex items-center gradient-bg px-8 py-4 rounded-full font-bold text-lg hover-glow-intense transition-smooth">
+            View All Tracks
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+        </a>
     </div>
 </section>
 
-<section class="bg-gradient-to-r from-electric-purple/10 to-neon-cyan/10 py-20">
-    <div class="max-w-7xl mx-auto px-4">
-        <h2 class="font-heading text-4xl font-bold text-center mb-12 glow-text">Upcoming Events</h2>
+<!-- Section Divider -->
+<div class="section-divider max-w-4xl mx-auto my-12"></div>
+
+<!-- Upcoming Events Section -->
+<section class="relative py-20 parallax-bg scroll-reveal" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1600');">
+    <div class="absolute inset-0 bg-black/80"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="font-heading text-5xl md:text-6xl font-black mb-4 neon-text">
+                Upcoming Events
+            </h2>
+            <p class="text-gray-400 text-lg">Catch DJ Whizzy live across Nigeria and beyond</p>
+        </div>
+        
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             {% for event in upcoming_events %}
-            <div class="bg-gray-900 rounded-lg overflow-hidden hover-glow">
-                <img src="{{ event.banner }}" alt="{{ event.name }}" class="w-full h-48 object-cover">
+            <div class="glass-card rounded-2xl overflow-hidden hover-lift transition-smooth stagger-item">
+                <div class="relative">
+                    <img src="{{ event.banner }}" alt="{{ event.name }}" class="w-full h-48 object-cover">
+                    <div class="absolute top-4 right-4 glass-card px-4 py-2 rounded-full">
+                        <span class="text-neon-cyan font-bold text-sm">{{ event.date|date:"M d" }}</span>
+                    </div>
+                </div>
                 <div class="p-6">
-                    <h3 class="font-heading text-xl font-bold mb-2">{{ event.name }}</h3>
-                    <p class="text-gray-400 mb-1">{{ event.date|date:"M d, Y" }} • {{ event.date|date:"H:i" }}</p>
-                    <p class="text-neon-cyan">{{ event.venue }}, {{ event.city }}</p>
+                    <h3 class="font-heading text-xl font-bold mb-3">{{ event.name }}</h3>
+                    <div class="space-y-2 mb-4">
+                        <p class="text-gray-400 text-sm flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-neon-cyan" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                            </svg>
+                            {{ event.date|date:"g:i A" }}
+                        </p>
+                        <p class="text-gray-400 text-sm flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-neon-cyan" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                            </svg>
+                            {{ event.venue }}, {{ event.city }}
+                        </p>
+                    </div>
+                    <a href="/events/" class="block text-center gradient-bg px-6 py-3 rounded-full font-bold hover-glow-intense transition-smooth">
+                        Get Tickets
+                    </a>
                 </div>
             </div>
             {% empty %}
-            <p class="text-gray-400 col-span-3 text-center">No upcoming events</p>
+            <div class="col-span-3 text-center py-20">
+                <p class="text-gray-400 text-xl">No upcoming events scheduled. Check back soon!</p>
+            </div>
             {% endfor %}
         </div>
-        <div class="text-center mt-8">
-            <a href="/events/" class="text-neon-cyan hover:text-electric-purple transition">View All Events →</a>
+        
+        <div class="text-center mt-12">
+            <a href="/events/" class="inline-flex items-center glass-card px-8 py-4 rounded-full font-bold text-lg hover-lift transition-bounce">
+                View All Events
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+            </a>
         </div>
     </div>
 </section>
 
-<section class="max-w-7xl mx-auto px-4 py-20">
-    <h2 class="font-heading text-4xl font-bold text-center mb-12 glow-text">Featured Merch</h2>
+<!-- Featured Merch Section -->
+<section class="max-w-7xl mx-auto px-4 py-20 scroll-reveal">
+    <div class="text-center mb-16">
+        <h2 class="font-heading text-5xl md:text-6xl font-black mb-4 neon-text">
+            Official Merch
+        </h2>
+        <p class="text-gray-400 text-lg">Rep the WhizzyVerse with exclusive gear</p>
+    </div>
+    
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {% for item in featured_merch %}
-        <div class="bg-gray-900 rounded-lg overflow-hidden hover-glow">
-            <img src="{{ item.image_url }}" alt="{{ item.name }}" class="w-full h-64 object-cover">
-            <div class="p-6">
-                <h3 class="font-heading text-xl font-bold mb-2">{{ item.name }}</h3>
-                <p class="text-neon-cyan text-2xl font-bold">${{ item.price }}</p>
+        <div class="flip-card stagger-item">
+            <div class="flip-card-inner rounded-2xl">
+                <div class="flip-card-front glass-card rounded-2xl overflow-hidden">
+                    <img src="{{ item.image_url }}" alt="{{ item.name }}" class="w-full h-80 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-heading text-xl font-bold mb-2">{{ item.name }}</h3>
+                        <p class="text-neon-cyan text-3xl font-black">${{ item.price }}</p>
+                    </div>
+                </div>
+                <div class="flip-card-back glass-card rounded-2xl p-6 flex flex-col justify-center items-center">
+                    <h3 class="font-heading text-2xl font-bold mb-4">{{ item.name }}</h3>
+                    <p class="text-gray-300 text-center mb-6">{{ item.description|truncatewords:20 }}</p>
+                    <a href="/merch/" class="gradient-bg px-8 py-3 rounded-full font-bold hover-glow-intense transition-smooth">
+                        Shop Now
+                    </a>
+                </div>
             </div>
         </div>
         {% empty %}
-        <p class="text-gray-400 col-span-3 text-center">No featured merch available</p>
+        <div class="col-span-3 text-center py-20">
+            <p class="text-gray-400 text-xl">No featured merch available yet. Check back soon!</p>
+        </div>
         {% endfor %}
     </div>
-    <div class="text-center mt-8">
-        <a href="/merch/" class="text-neon-cyan hover:text-electric-purple transition">Shop All Merch →</a>
+    
+    <div class="text-center mt-12">
+        <a href="/merch/" class="inline-flex items-center gradient-bg px-8 py-4 rounded-full font-bold text-lg hover-glow-intense transition-smooth">
+            Shop All Merch
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+        </a>
     </div>
 </section>
+
+<!-- Newsletter Section -->
+<section class="max-w-4xl mx-auto px-4 py-20 scroll-reveal">
+    <div class="glass-card rounded-3xl p-12 text-center relative overflow-hidden">
+        <div class="absolute inset-0 gradient-bg-animated opacity-20"></div>
+        <div class="relative z-10">
+            <h2 class="font-heading text-4xl md:text-5xl font-black mb-4 neon-text">
+                Stay in the Loop
+            </h2>
+            <p class="text-gray-300 text-lg mb-8">
+                Get exclusive updates on new tracks, upcoming shows, and special merch drops
+            </p>
+            <form class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto" action="{% url 'newsletter:subscribe' %}" method="POST">
+                {% csrf_token %}
+                <input 
+                    type="email" 
+                    name="email"
+                    placeholder="Enter your email" 
+                    required
+                    class="flex-1 px-6 py-4 rounded-full bg-gray-900 border-2 border-neon-cyan/30 focus:border-neon-cyan outline-none text-white transition-smooth"
+                >
+                <button type="submit" class="gradient-bg px-8 py-4 rounded-full font-bold hover-glow-intense transition-smooth whitespace-nowrap">
+                    Join WhizzyVerse
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Particle Background Animation
+function createParticles() {
+    const particlesContainer = document.getElementById('particles-bg');
+    if (!particlesContainer) return;
+    
+    const particleCount = 50;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        particle.style.animationDelay = Math.random() * 2 + 's';
+        
+        const keyframes = `
+            @keyframes float-${i} {
+                0%, 100% {
+                    transform: translate(0, 0);
+                    opacity: 0;
+                }
+                10%, 90% {
+                    opacity: 1;
+                }
+                50% {
+                    transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px);
+                }
+            }
+        `;
+        
+        const style = document.createElement('style');
+        style.textContent = keyframes;
+        document.head.appendChild(style);
+        
+        particle.style.animation = `float-${i} ${Math.random() * 5 + 3}s infinite`;
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// Scroll Reveal Animation
+function revealOnScroll() {
+    const reveals = document.querySelectorAll('.scroll-reveal');
+    
+    reveals.forEach(element => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < windowHeight - elementVisible) {
+            element.classList.add('revealed');
+        }
+    });
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    createParticles();
+    revealOnScroll();
+    
+    window.addEventListener('scroll', revealOnScroll);
+});
+
+// Smooth Scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+</script>
 {% endblock %}

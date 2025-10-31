@@ -1,0 +1,51 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer Glow Circle -->
+  <circle cx="100" cy="100" r="95" fill="url(#outerGlow)" opacity="0.3"/>
+  
+  <!-- Main Circle Background -->
+  <circle cx="100" cy="100" r="85" fill="url(#mainGradient)"/>
+  
+  <!-- Waveform Pattern -->
+  <path d="M 40 100 L 45 85 L 50 110 L 55 75 L 60 115 L 65 80 L 70 105 L 75 90 L 80 100" 
+        stroke="#00E0FF" stroke-width="3" fill="none" opacity="0.6"/>
+  <path d="M 120 100 L 125 115 L 130 90 L 135 120 L 140 85 L 145 110 L 150 95 L 155 105 L 160 100" 
+        stroke="#00E0FF" stroke-width="3" fill="none" opacity="0.6"/>
+  
+  <!-- Stylized "W" -->
+  <path d="M 50 60 L 60 120 L 70 75 L 80 120 L 90 60" 
+        stroke="url(#textGradient)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M 110 60 L 120 120 L 130 75 L 140 120 L 150 60" 
+        stroke="url(#textGradient)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  
+  <!-- Center Circle -->
+  <circle cx="100" cy="90" r="15" fill="url(#centerGradient)"/>
+  
+  <!-- Sound Bars -->
+  <rect x="95" y="140" width="3" height="20" fill="#00E0FF" opacity="0.8"/>
+  <rect x="100" y="135" width="3" height="30" fill="#00E0FF" opacity="0.9"/>
+  <rect x="105" y="130" width="3" height="40" fill="#7A00FF" opacity="0.9"/>
+  
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A0A0A;stop-opacity:0.95" />
+      <stop offset="50%" style="stop-color:#1A0A2E;stop-opacity:0.98" />
+      <stop offset="100%" style="stop-color:#0A0A0A;stop-opacity:0.95" />
+    </linearGradient>
+    
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00E0FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7A00FF;stop-opacity:1" />
+    </linearGradient>
+    
+    <radialGradient id="centerGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#00E0FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7A00FF;stop-opacity:0.8" />
+    </radialGradient>
+    
+    <radialGradient id="outerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#00E0FF;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#7A00FF;stop-opacity:0.1" />
+    </radialGradient>
+  </defs>
+</svg>

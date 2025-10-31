@@ -23,6 +23,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
     
     <script>
         tailwind.config = {
@@ -307,6 +309,7 @@
     <script src="/static/js/music-player.js"></script>
     <script src="/static/js/cart.js"></script>
     <script src="/static/js/event-countdown.js"></script>
+    <script src="/static/js/whizbot.js"></script>
     
     {% include "components/music_player.html" %}
     {% include "components/cart_widget.html" %}
