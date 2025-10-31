@@ -1,22 +1,34 @@
-"""
-URL configuration for whizzyverse project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from rest_framework import routers
+
+from whizzyverse.core.views import landing_page_view
+from whizzyverse.tracks.views import TrackViewSet, music_library_view
+from whizzyverse.events.views import EventViewSet, events_view
+from whizzyverse.merch.views import MerchItemViewSet, merch_store_view
+from whizzyverse.analytics.views import AnalyticsViewSet, analytics_summary, admin_dashboard_view
+from whizzyverse.ai_connector.views import chat_with_whizbot
+
+router = routers.DefaultRouter()
+router.register(r'tracks', TrackViewSet)
+router.register(r'events', EventViewSet)
+router.register(r'merch', MerchItemViewSet)
+router.register(r'analytics', AnalyticsViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', landing_page_view, name='landing'),
+    path('music/', music_library_view, name='music_library'),
+    path('events/', events_view, name='events'),
+    path('merch/', merch_store_view, name='merch_store'),
+    path('admin-demo/', admin_dashboard_view, name='admin_dashboard'),
+    path('api/', include(router.urls)),
+    path('api/chat/', chat_with_whizbot, name='chat_whizbot'),
+    path('api/analytics/summary/', analytics_summary, name='analytics_summary'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - WhizzyVerse{% endblock %}
+
+{% block content %}
+<section class="bg-gradient-to-r from-electric-purple/20 to-neon-cyan/20 py-12">
+    <div class="max-w-7xl mx-auto px-4">
+        <h1 class="font-heading text-4xl md:text-5xl font-bold text-center glow-text mb-2">Admin Dashboard</h1>
+        <p class="text-center text-gray-400">WhizzyVerse Analytics & Metrics</p>
+    </div>
+</section>
+
+<section class="max-w-7xl mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div class="bg-gray-900 rounded-lg p-6 hover-glow">
+            <h3 class="text-gray-400 text-sm mb-2">Total Track Plays</h3>
+            <p class="text-4xl font-bold text-neon-cyan">{{ analytics.track_plays|floatformat:0 }}</p>
+        </div>
+        
+        <div class="bg-gray-900 rounded-lg p-6 hover-glow">
+            <h3 class="text-gray-400 text-sm mb-2">Chat Sessions</h3>
+            <p class="text-4xl font-bold text-electric-purple">{{ analytics.chat_sessions|floatformat:0 }}</p>
+        </div>
+        
+        <div class="bg-gray-900 rounded-lg p-6 hover-glow">
+            <h3 class="text-gray-400 text-sm mb-2">Total Fans</h3>
+            <p class="text-4xl font-bold text-neon-cyan">{{ analytics.total_fans|floatformat:0 }}</p>
+        </div>
+        
+        <div class="bg-gray-900 rounded-lg p-6 hover-glow">
+            <h3 class="text-gray-400 text-sm mb-2">Page Views</h3>
+            <p class="text-4xl font-bold text-electric-purple">{{ analytics.page_views|floatformat:0 }}</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <div class="bg-gray-900 rounded-lg p-8">
+            <h2 class="font-heading text-2xl font-bold mb-6">Music Library Stats</h2>
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-400">Total Tracks</span>
+                    <span class="text-neon-cyan font-bold text-xl">{{ total_tracks }}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-400">Featured Tracks</span>
+                    <span class="text-electric-purple font-bold text-xl">{{ featured_tracks }}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-400">Avg Plays per Track</span>
+                    <span class="text-neon-cyan font-bold text-xl">
+                        {% if total_tracks > 0 %}
+                            {{ analytics.track_plays|floatformat:0|add:"0"|divisibleby:total_tracks|default:"0" }}
+                        {% else %}
+                            0
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-900 rounded-lg p-8">
+            <h2 class="font-heading text-2xl font-bold mb-6">Engagement Metrics</h2>
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-400">Merch Views</span>
+                    <span class="text-neon-cyan font-bold text-xl">{{ analytics.merch_views|floatformat:0 }}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-400">Event Views</span>
+                    <span class="text-electric-purple font-bold text-xl">{{ analytics.event_views|floatformat:0 }}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-400">WhizBot Interactions</span>
+                    <span class="text-neon-cyan font-bold text-xl">{{ analytics.chat_sessions|floatformat:0 }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-gray-900 rounded-lg p-8">
+        <h2 class="font-heading text-2xl font-bold mb-6">Platform Overview</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="text-center">
+                <div class="w-32 h-32 mx-auto bg-gradient-to-br from-neon-cyan to-electric-purple rounded-full flex items-center justify-center mb-4">
+                    <span class="text-4xl font-bold">{{ total_tracks }}</span>
+                </div>
+                <p class="text-gray-400">Tracks Available</p>
+            </div>
+            <div class="text-center">
+                <div class="w-32 h-32 mx-auto bg-gradient-to-br from-electric-purple to-neon-cyan rounded-full flex items-center justify-center mb-4">
+                    <span class="text-4xl font-bold">{{ analytics.total_fans|floatformat:0 }}</span>
+                </div>
+                <p class="text-gray-400">Community Members</p>
+            </div>
+            <div class="text-center">
+                <div class="w-32 h-32 mx-auto bg-gradient-to-br from-neon-cyan to-electric-purple rounded-full flex items-center justify-center mb-4">
+                    <span class="text-4xl font-bold">{{ analytics.page_views|floatformat:0 }}</span>
+                </div>
+                <p class="text-gray-400">Total Page Views</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

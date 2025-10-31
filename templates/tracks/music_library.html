@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Music Library - WhizzyVerse{% endblock %}
+
+{% block content %}
+<section class="bg-gradient-to-r from-electric-purple/20 to-neon-cyan/20 py-20">
+    <div class="max-w-7xl mx-auto px-4">
+        <h1 class="font-heading text-5xl md:text-6xl font-bold text-center glow-text mb-4">Music Library</h1>
+        <p class="text-center text-gray-400 text-xl">Explore DJ Whizzy's Sound Dimension</p>
+    </div>
+</section>
+
+<section class="max-w-7xl mx-auto px-4 py-12" x-data="{ activeTrack: null }">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for track in tracks %}
+        <div class="bg-gray-900 rounded-lg overflow-hidden hover-glow transition">
+            <img src="{{ track.artwork }}" alt="{{ track.title }}" class="w-full h-56 object-cover">
+            <div class="p-6">
+                <h3 class="font-heading text-2xl font-bold mb-2">{{ track.title }}</h3>
+                <p class="text-gray-400 mb-1">{{ track.artist }}</p>
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-neon-cyan">{{ track.genre }}</span>
+                    <span class="text-gray-500">{{ track.bpm }} BPM</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-500">{{ track.plays|floatformat:0 }} plays</span>
+                    <span class="text-sm text-gray-500">{{ track.duration }}</span>
+                </div>
+                {% if track.file_url %}
+                <button @click="activeTrack = {{ track.id }}" 
+                        class="mt-4 w-full gradient-bg py-2 rounded-lg font-bold hover-glow">
+                    Play Track
+                </button>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-gray-400 col-span-3 text-center py-12">No tracks available yet. Check back soon!</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

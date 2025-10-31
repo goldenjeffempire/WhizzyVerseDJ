@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Events - WhizzyVerse{% endblock %}
+
+{% block content %}
+<section class="bg-gradient-to-r from-electric-purple/20 to-neon-cyan/20 py-20">
+    <div class="max-w-7xl mx-auto px-4">
+        <h1 class="font-heading text-5xl md:text-6xl font-bold text-center glow-text mb-4">Events</h1>
+        <p class="text-center text-gray-400 text-xl">Experience DJ Whizzy Live</p>
+    </div>
+</section>
+
+<section class="max-w-7xl mx-auto px-4 py-12">
+    <h2 class="font-heading text-3xl font-bold mb-8 text-neon-cyan">Upcoming Shows</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        {% for event in upcoming_events %}
+        <div class="bg-gray-900 rounded-lg overflow-hidden hover-glow transition">
+            <img src="{{ event.banner }}" alt="{{ event.name }}" class="w-full h-64 object-cover">
+            <div class="p-6">
+                <h3 class="font-heading text-2xl font-bold mb-3">{{ event.name }}</h3>
+                <div class="space-y-2 mb-4">
+                    <p class="text-gray-400">
+                        <span class="text-neon-cyan">📅</span> {{ event.date|date:"F d, Y" }} at {{ event.date|date:"g:i A" }}
+                    </p>
+                    <p class="text-gray-400">
+                        <span class="text-neon-cyan">📍</span> {{ event.venue }}, {{ event.city }}, {{ event.country }}
+                    </p>
+                    {% if event.ticket_price %}
+                    <p class="text-gray-400">
+                        <span class="text-neon-cyan">💰</span> ${{ event.ticket_price }}
+                    </p>
+                    {% endif %}
+                </div>
+                <p class="text-gray-300 mb-4">{{ event.description }}</p>
+                {% if event.ticket_url %}
+                <a href="{{ event.ticket_url }}" target="_blank" class="inline-block gradient-bg px-6 py-3 rounded-lg font-bold hover-glow">
+                    Get Tickets
+                </a>
+                {% else %}
+                <button class="inline-block bg-gray-700 px-6 py-3 rounded-lg font-bold cursor-not-allowed">
+                    Coming Soon
+                </button>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-gray-400 col-span-2 text-center py-12">No upcoming events scheduled. Check back soon!</p>
+        {% endfor %}
+    </div>
+
+    <h2 class="font-heading text-3xl font-bold mb-8 text-electric-purple">Past Shows</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {% for event in past_events %}
+        <div class="bg-gray-900 rounded-lg overflow-hidden opacity-75 hover:opacity-100 transition">
+            <img src="{{ event.banner }}" alt="{{ event.name }}" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h3 class="font-heading text-lg font-bold mb-2">{{ event.name }}</h3>
+                <p class="text-gray-400 text-sm">{{ event.date|date:"M d, Y" }}</p>
+                <p class="text-gray-500 text-sm">{{ event.venue }}, {{ event.city }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-gray-400 col-span-3 text-center py-8">No past events recorded</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
