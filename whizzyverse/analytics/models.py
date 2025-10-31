@@ -1,7 +1,9 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Analytics(models.Model):
+    date = models.DateField(unique=True)
     track_plays = models.IntegerField(default=0)
     chat_sessions = models.IntegerField(default=0)
     total_fans = models.IntegerField(default=0)
@@ -13,21 +15,23 @@ class Analytics(models.Model):
 
     class Meta:
         verbose_name_plural = 'Analytics'
+        ordering = ['-date']
 
     def __str__(self):
-        return f"Analytics - {self.created_at.strftime('%Y-%m-%d')}"
+        return f"Analytics - {self.date}"
 
     @classmethod
     def get_or_create_today(cls):
-        from django.utils import timezone
         today = timezone.now().date()
         analytics, created = cls.objects.get_or_create(
-            created_at__date=today,
+            date=today,
             defaults={
                 'track_plays': 0,
                 'chat_sessions': 0,
                 'total_fans': 0,
                 'page_views': 0,
+                'merch_views': 0,
+                'event_views': 0,
             }
         )
         return analytics

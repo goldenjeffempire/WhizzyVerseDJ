@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class AiConnectorConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'ai_connector'
+    name = 'whizzyverse.ai_connector'
