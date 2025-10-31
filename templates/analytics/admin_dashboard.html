@@ -2,6 +2,10 @@
 
 {% block title %}Admin Dashboard - WhizzyVerse{% endblock %}
 
+{% block extra_css %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+{% endblock %}
+
 {% block content %}
 <section class="bg-gradient-to-r from-electric-purple/20 to-neon-cyan/20 py-12">
     <div class="max-w-7xl mx-auto px-4">
@@ -77,6 +81,18 @@
         </div>
     </div>
 
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <div class="bg-gray-900 rounded-lg p-8">
+            <h2 class="font-heading text-2xl font-bold mb-6">Engagement Distribution</h2>
+            <canvas id="engagementChart"></canvas>
+        </div>
+
+        <div class="bg-gray-900 rounded-lg p-8">
+            <h2 class="font-heading text-2xl font-bold mb-6">Platform Activity</h2>
+            <canvas id="activityChart"></canvas>
+        </div>
+    </div>
+
     <div class="bg-gray-900 rounded-lg p-8">
         <h2 class="font-heading text-2xl font-bold mb-6">Platform Overview</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -101,4 +117,92 @@
         </div>
     </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                labels: {
+                    color: '#FFFFFF',
+                    font: { size: 12 }
+                }
+            }
+        }
+    };
+
+    const engagementCtx = document.getElementById('engagementChart');
+    new Chart(engagementCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Track Plays', 'Chat Sessions', 'Page Views'],
+            datasets: [{
+                data: [
+                    {{ analytics.track_plays }},
+                    {{ analytics.chat_sessions }},
+                    {{ analytics.page_views }}
+                ],
+                backgroundColor: [
+                    'rgba(0, 224, 255, 0.8)',
+                    'rgba(122, 0, 255, 0.8)',
+                    'rgba(0, 224, 255, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(0, 224, 255, 1)',
+                    'rgba(122, 0, 255, 1)',
+                    'rgba(0, 224, 255, 0.8)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: chartOptions
+    });
+
+    const activityCtx = document.getElementById('activityChart');
+    new Chart(activityCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Merch Views', 'Event Views', 'Chat Sessions', 'Fans'],
+            datasets: [{
+                label: 'Activity Count',
+                data: [
+                    {{ analytics.merch_views }},
+                    {{ analytics.event_views }},
+                    {{ analytics.chat_sessions }},
+                    {{ analytics.total_fans }}
+                ],
+                backgroundColor: [
+                    'rgba(0, 224, 255, 0.6)',
+                    'rgba(122, 0, 255, 0.6)',
+                    'rgba(0, 224, 255, 0.8)',
+                    'rgba(122, 0, 255, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(0, 224, 255, 1)',
+                    'rgba(122, 0, 255, 1)',
+                    'rgba(0, 224, 255, 1)',
+                    'rgba(122, 0, 255, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            ...chartOptions,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: '#FFFFFF' },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                },
+                x: {
+                    ticks: { color: '#FFFFFF' },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                }
+            }
+        }
+    });
+});
+</script>
 {% endblock %}

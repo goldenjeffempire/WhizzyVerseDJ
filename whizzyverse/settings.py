@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'whizzyverse.merch',
     'whizzyverse.analytics',
     'whizzyverse.ai_connector',
+    'whizzyverse.newsletter',
+    'whizzyverse.contact',
 ]
 
 MIDDLEWARE = [
