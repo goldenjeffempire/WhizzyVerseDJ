@@ -10,7 +10,59 @@
     </div>
 </section>
 
-<section class="max-w-7xl mx-auto px-4 py-12">
+<section class="max-w-7xl mx-auto px-4 py-8">
+    <form method="GET" class="bg-gray-900 rounded-lg p-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="md:col-span-2">
+                <label for="search" class="block text-sm text-gray-400 mb-2">Search Merch</label>
+                <input 
+                    type="text" 
+                    id="search" 
+                    name="search" 
+                    value="{{ search_query }}"
+                    placeholder="Search by name, category..." 
+                    class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-neon-cyan"
+                >
+            </div>
+            <div>
+                <label for="category" class="block text-sm text-gray-400 mb-2">Category</label>
+                <select 
+                    name="category" 
+                    id="category"
+                    class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-neon-cyan"
+                >
+                    <option value="">All Categories</option>
+                    {% for category in all_categories %}
+                    <option value="{{ category }}" {% if category_filter == category %}selected{% endif %}>{{ category|title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="sort" class="block text-sm text-gray-400 mb-2">Sort By</label>
+                <select 
+                    name="sort" 
+                    id="sort"
+                    class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-neon-cyan"
+                >
+                    <option value="name" {% if sort_by == 'name' %}selected{% endif %}>Name A-Z</option>
+                    <option value="-name" {% if sort_by == '-name' %}selected{% endif %}>Name Z-A</option>
+                    <option value="price" {% if sort_by == 'price' %}selected{% endif %}>Price: Low to High</option>
+                    <option value="-price" {% if sort_by == '-price' %}selected{% endif %}>Price: High to Low</option>
+                </select>
+            </div>
+        </div>
+        <div class="mt-4 flex gap-2">
+            <button type="submit" class="px-6 py-2 bg-gradient-to-r from-neon-cyan to-electric-purple rounded-lg font-bold hover-glow">
+                Apply Filters
+            </button>
+            <a href="{% url 'merch_store' %}" class="px-6 py-2 border border-gray-700 rounded-lg font-bold hover:border-neon-cyan transition">
+                Clear
+            </a>
+        </div>
+    </form>
+</section>
+
+<section class="max-w-7xl mx-auto px-4 pb-12">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for item in merch_items %}
         <div class="bg-gray-900 rounded-lg overflow-hidden hover-glow transition" x-data="{ showDetails: false }">

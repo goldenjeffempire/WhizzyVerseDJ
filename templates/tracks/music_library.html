@@ -10,7 +10,59 @@
     </div>
 </section>
 
-<section class="max-w-7xl mx-auto px-4 py-12" x-data="{ activeTrack: null }">
+<section class="max-w-7xl mx-auto px-4 py-8">
+    <form method="GET" class="bg-gray-900 rounded-lg p-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="md:col-span-2">
+                <label for="search" class="block text-sm text-gray-400 mb-2">Search Tracks</label>
+                <input 
+                    type="text" 
+                    id="search" 
+                    name="search" 
+                    value="{{ search_query }}"
+                    placeholder="Search by title, genre, description..." 
+                    class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-neon-cyan"
+                >
+            </div>
+            <div>
+                <label for="genre" class="block text-sm text-gray-400 mb-2">Genre</label>
+                <select 
+                    name="genre" 
+                    id="genre"
+                    class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-neon-cyan"
+                >
+                    <option value="">All Genres</option>
+                    {% for genre in all_genres %}
+                    <option value="{{ genre }}" {% if genre_filter == genre %}selected{% endif %}>{{ genre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="sort" class="block text-sm text-gray-400 mb-2">Sort By</label>
+                <select 
+                    name="sort" 
+                    id="sort"
+                    class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-neon-cyan"
+                >
+                    <option value="-release_date" {% if sort_by == '-release_date' %}selected{% endif %}>Newest First</option>
+                    <option value="release_date" {% if sort_by == 'release_date' %}selected{% endif %}>Oldest First</option>
+                    <option value="title" {% if sort_by == 'title' %}selected{% endif %}>Title A-Z</option>
+                    <option value="-plays" {% if sort_by == '-plays' %}selected{% endif %}>Most Played</option>
+                </select>
+            </div>
+        </div>
+        <div class="mt-4 flex gap-2">
+            <button type="submit" class="px-6 py-2 bg-gradient-to-r from-neon-cyan to-electric-purple rounded-lg font-bold hover-glow">
+                Apply Filters
+            </button>
+            <a href="{% url 'music_library' %}" class="px-6 py-2 border border-gray-700 rounded-lg font-bold hover:border-neon-cyan transition">
+                Clear
+            </a>
+        </div>
+    </form>
+</section>
+
+<section class="max-w-7xl mx-auto px-4 pb-12" x-data="{ activeTrack: null }">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for track in tracks %}
         <div class="bg-gray-900 rounded-lg overflow-hidden hover-glow transition">
